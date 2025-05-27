@@ -1,26 +1,414 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  background-color: white;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+.App {
+  max-width: 600px;
+  margin: 40px auto;
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+h2 {
+  text-align: center;
+  color: #333;
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+input[type="text"],
+input[type="file"],
+input[type="password"] {
+  width: calc(100% - 22px);
+  padding: 10px;
+  margin: 10px 0 15px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+  box-sizing: border-box;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="file"]:focus,
+input[type="password"]:focus {
+  border-color: #007bff;
+}
+
+button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  /* padding: 10px 16px; */
+  margin: 10px 5px 15px 0;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+.chat-container {
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  height: 400px;
+  overflow-y: auto;
+  padding: 15px;
+  background: #fafafa;
+}
+
+.message {
+  margin-bottom: 12px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid #eee;
+}
+
+.message strong {
+  color: #007bff;
+}
+
+.message span {
+  font-size: 12px;
+  color: #999;
+  margin-left: 8px;
+}
+
+.typing-indicator {
+  font-style: italic;
+  color: #666;
+  margin-bottom: 12px;
+}
+
+.emoji-button,
+.mic-button {
+  background: transparent;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  vertical-align: middle;
+  margin-left: 5px;
+}
+
+.file-link {
+  color: #007bff;
+  text-decoration: none;
+  margin-left: 5px;
+}
+
+.file-link:hover {
+  text-decoration: underline;
+}
+
+.chat-container {
+  max-height: 500px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin-top: 20px;
+  background: #f9f9f9;
+}
+
+.message {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 15px;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  background: #007bff;
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.message-content {
+  max-width: 75%;
+}
+
+.author {
+  font-weight: bold;
+  color: #333;
+}
+
+.text {
+  margin: 5px 0;
+  background: #e2e2e2;
+  padding: 8px 12px;
+  border-radius: 8px;
+}
+
+.chat-image {
+  max-width: 250px;
+  margin: 5px 0;
+  border-radius: 8px;
+}
+
+.file-link {
+  display: inline-block;
+  margin: 5px 0;
+  text-decoration: none;
+  color: #007bff;
+  font-weight: bold;
+}
+
+.time {
+  font-size: 12px;
+  color: #888;
+  margin-top: 4px;
+}
+
+.input-area {
+  margin-bottom: 15px;
+}
+
+.input-area input[type="text"] {
+  padding: 8px;
+  width: 300px;
+}
+
+.emoji-button {
+  margin: 0 8px;
+  cursor: pointer;
+}
+
+.typing-indicator {
+  font-style: italic;
+  margin-bottom: 10px;
+}
+
+/* chat window css  */
+.chat-window {
+  border: 1px solid #ccc;
+  padding: 16px;
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  background: #e5ddd5;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  height: 500px;
+}
+.message-container {
+  flex: 1;
+  overflow-y: auto;
+  margin-bottom: 16px;
+  padding-right: 4px;
+}
+.message {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 8px;
+}
+.avatar-circle {
+  background-color: #4a5568;
+  color: #fff;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 14px;
+  margin-right: 8px;
+  flex-shrink: 0;
+}
+.avatar-image {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 8px;
+  flex-shrink: 0;
+}
+.message-content {
+  background: #dcf8c6;
+  padding: 8px 20px;
+  border-radius: 7.5px;
+  max-width: 95%;
+  word-wrap: break-word;
+}
+.my-message {
+  background: #dcf8c6;
+}
+.other-message {
+  background: #fff;
+}
+.message-meta {
+  font-size: 12px;
+  color: #555;
+  margin-top: 4px;
+}
+.input-container {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.input-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.input-with-icons {
+  flex: 1;
+  position: relative;
+}
+
+.input-with-icons input[type="text"] {
+  width: 75%;
+  padding: 8px 40px 8px 40px; /* space for emoji and mic icons inside input */
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+.emoji-button {
+  position: absolute;
+  left: 1%;
+  top: 47%;
+  transform: translateY(-50%);
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 20px;
+  color: #555;
+  padding: 0;
+  user-select: none;
+}
+
+.mic-button {
+  position: absolute;
+  right: 16%;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 20px;
+  color: #555;
+  border-radius: 50px;
+  padding: 0;
+  user-select: none;
+}
+
+.mic-button button {
+  border-radius: 50px;
+  height: 39px;
+  width: 38px;
+}
+
+.send-button {
+  position: absolute;
+  top: 32%;
+  transform: translateY(-50%);
+  right: 0%;
+  background: #25d366; /* WhatsApp green */
+  border: none;
+  border-radius: 50%;
+  color: white;
+  width: 36px;
+  height: 36px;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  transition: background-color 0.2s ease;
+}
+
+.send-button:hover {
+  background: #128c7e;
+}
+
+input[type="text"],
+input[type="file"],
+input[type="password"] {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 30px;
+}
+button {
+  padding: 8px 12px;
+  background: #075e54;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+button:hover {
+  background: #128c7e;
+}
+.disabled-button {
+  background: #999 !important;
+  cursor: not-allowed;
+}
+.typing-indicator {
+  font-style: italic;
+  color: #555;
+  margin-bottom: 8px;
+  height: 20px;
+}
+.chat-image {
+  max-width: 150px;
+  border-radius: 8px;
+  margin-top: 8px;
+  display: block;
+}
+.file-link {
+  color: #0645ad;
+  text-decoration: underline;
+  display: inline-block;
+  margin-top: 8px;
+}
+.file-name {
+  margin-left: 8px;
+  background: #f0f0f0;
+  padding: 4px 8px;
+  border-radius: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.remove-file {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  color: #a00;
+}
+
+.mic-button.recording {
+  color: red;
+}
+
+.file-upload-button {
+  position: absolute;
+  right: 9%;
+  top: 45%;
+  transform: translateY(-50%);
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 20px;
+  color: #555;
+  border-radius: 50px;
+  padding: 0;
+  user-select: none;
 }
